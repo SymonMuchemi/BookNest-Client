@@ -4,11 +4,14 @@ function App() {
   return (
     <div className="container">
       <div className="side-bar">
-        <p id="title">BookNest</p>
+        <div id="title">
+          {/* <img src="shelf-icon.png" alt="shelf icon" /> */}
+          <p>BookNest</p>
+        </div>
         <div className="links">
-          <p>Books</p>
-          <p>Transacations</p>
-          <p>Members</p>
+          <a href="#">Books</a>
+          <a href="#">Transacations</a>
+          <a href="#">Members</a>
         </div>
       </div>
       <div className="main">
