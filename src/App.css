@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+  min-width: 99svw;
+  min-height: 99svh;
+  margin: 0;
+}
+
+.container .side-bar {
+  /* border: 1px solid blue; */
+  /* width: 15%; */
+  padding: 20px;
+  align-items: center;
+  
+
+  & #title {
+    font-size: xx-large;
+    margin-top: 0;
+  }
+}
