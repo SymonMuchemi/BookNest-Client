@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: row;
   /* border: 1px solid red; */
-  min-width: 99svw;
-  min-height: 99svh;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0;
 }
 
@@ -61,7 +61,6 @@
     background-color: #d5d5ff;
     color: #5755ff;
   }
-
 }
 
 .container .main {
