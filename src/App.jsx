@@ -1,11 +1,13 @@
 import "./App.css";
+import Books from "./components/Books";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
     <div className="container">
       <div className="side-bar">
         <div id="title">
-          {/* <img src="shelf-icon.png" alt="shelf icon" /> */}
+          <img src="library-100.png" alt="shelf icon" />
           <p>BookNest</p>
         </div>
         <div className="links">
@@ -15,8 +17,9 @@ function App() {
         </div>
       </div>
       <div className="main">
-        <h1>BookNest</h1>
-        <h2>Your handy library management tool.</h2>
+        <ErrorBoundary>
+          <Books />
+        </ErrorBoundary>
       </div>
     </div>
   );
