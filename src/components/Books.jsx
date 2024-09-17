@@ -1,4 +1,4 @@
-import "./books.css";
+import "./styles/books.css";
 
 import React from "react";
 import useSWR from "swr";
@@ -58,7 +58,7 @@ function Books() {
   if (isLoading) return <div>Loading...</div>;
   if (error) {
     console.log(error);
-    
+
     return <div>Error loading data</div>;
   }
 
@@ -67,7 +67,7 @@ function Books() {
   return (
     <div className="books">
       <h1>Books</h1>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
           placeholder="Search"
