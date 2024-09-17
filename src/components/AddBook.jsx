@@ -1,3 +1,5 @@
+import "./styles/addBook.css";
+
 import { useState } from "react";
 import axios from "axios";
 
@@ -7,6 +9,7 @@ const AddBook = () => {
     name: "",
     author: "",
     quantity: 0,
+    penalty_fee: 10,
   });
 
   const handleInputChange = (e) => {
@@ -28,18 +31,23 @@ const AddBook = () => {
       setShowForm(false);
     } catch (error) {
       console.error("Error adding book:", error);
+      alert("Failed to add book");
     }
   };
 
   return (
-    <div>
-      <button onClick={() => setShowForm(true)}>Add Book</button>
+    <div className="container">
+      <button id="add-btn" onClick={() => setShowForm(!showForm)}>
+        Add Book
+      </button>
       {showForm && (
         <div className="popup-form">
           <form onSubmit={handleSubmit}>
+            <h2>Add Book</h2>
             <label>
               Name:
               <input
+                placeholder="Book Name"
                 type="text"
                 name="name"
                 value={formData.name}
@@ -47,30 +55,54 @@ const AddBook = () => {
                 required
               />
             </label>
+            <br />
             <label>
               Author:
               <input
                 type="text"
                 name="author"
+                placeholder="Author"
                 value={formData.author}
                 onChange={handleInputChange}
                 required
               />
             </label>
+            <br />
             <label>
               Quantity:
               <input
                 type="number"
                 name="quantity"
+                placeholder="Quantity"
                 value={formData.quantity}
                 onChange={handleInputChange}
                 required
               />
             </label>
-            <button type="submit">Submit</button>
-            <button type="button" onClick={() => setShowForm(false)}>
-              Cancel
-            </button>
+            <br />
+            <label>
+              Penalty_fee:
+              <input
+                defaultValue={10}
+                placeholder="Penalty_fee"
+                type="number"
+                name="quantity"
+                value={formData.penalty_fee}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <br />
+            <div className="buttons">
+              <button type="submit">Submit</button>
+              <button
+                type="reset"
+                className="cancel"
+                onClick={() => setShowForm(false)}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       )}
