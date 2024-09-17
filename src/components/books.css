@@ -1,3 +1,12 @@
+:root {
+  --primary-color: #ff8f6b;
+  --secondary-color: #ff6b6b;
+  --green-color: #29a104;
+  --black-color: #070403;
+  --white-color: #f5f5f5;
+  --red-color: #df1111;
+}
+
 .books {
   display: flex;
   justify-content: center;
@@ -7,7 +16,7 @@
 
 .books h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .books table {
@@ -16,18 +25,18 @@
 }
 
 .books table thead th {
-  background-color: #ff8f6b;
+  background-color: var(--primary-color);
   padding: 12px;
 }
 
 .books td,
 .books tr {
-  border: 1px solid black;
-  padding: 10px;
+  border: 1px solid var(--black-color);
+  padding: 7px;
 }
 
 .books .actions button {
-  color: white;
+  color: var(--white-color);
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
@@ -35,14 +44,49 @@
 }
 
 .books .actions button.edit {
-  background-color: #29a104;
+  background-color: var(--green-color);
 }
 
 .books .actions button.delete {
-  background-color: #df1111;
+  background-color: var(--red-color);
   margin-left: 20px;
 }
 
 .books .actions button:hover {
-  background-color: #ff8f6b;
+  background-color: var(--secondary-color);
+}
+
+.books form {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  & input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--black-color);
+  }
+
+  & button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+  }
+
+  & button:hover {
+    background-color: var(--secondary-color);
+  }
+
+  & select {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--black-color);
+  }
 }
