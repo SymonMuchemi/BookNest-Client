@@ -1,33 +1,40 @@
-import fetcher from "../utils";
+import "./books.css";
+
 import React from "react";
 import useSWR from "swr";
-import "./books.css";
-import axios from "axios";
 import AddBook from "./AddBook";
+import {
+  fetchBooks,
+  fetchBooksByAuthor,
+  fetchBooksByTitle,
+  deleteBook,
+} from "../utils/api";
 
-const baseUrl = "http://127.0.0.1:5000/api";
+const fetcher = (url, params) => {
+  if (url.includes("get_by_author")) {
+    return fetchBooksByAuthor(params).then((res) => res.data);
+  } else if (url.includes("get_by_title")) {
+    return fetchBooksByTitle(params).then((res) => res.data);
+  } else {
+    return fetchBooks(params).then((res) => res.data);
+  }
+};
 
 function Books() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchType, setSearchType] = React.useState("title");
 
-  const getSearchURL = () => {
-    if (searchTerm === "") {
-      return `${baseUrl}/books/get_books?per_page=10`;
-    }
-
-    if (searchTerm === "author") {
-      return `${baseUrl}/books/get_by_author/${searchTerm}`;
-    }
-
-    return `${baseUrl}/books/get_by_title/${searchTerm}`;
+  const getSearchKey = () => {
+    if (!searchTerm) return ["/get_books"];
+    if (searchType === "author") return ["/get_by_author", searchTerm];
+    return ["/get_by_title", searchTerm];
   };
 
-  const { data, error, isLoading } = useSWR(getSearchURL(), fetcher);
+  const { data, error, isLoading } = useSWR(getSearchKey(), fetcher);
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`${baseUrl}/books/delete/${id}`);
+      const response = await deleteBook(id);
 
       if (response.status === 200) {
         window.location.reload();
@@ -44,12 +51,16 @@ function Books() {
     e.preventDefault();
     console.log(searchTerm);
     console.log(searchType);
-    const url = getSearchURL();
+    const url = getSearchKey();
     console.log(url);
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading data</div>;
+  if (error) {
+    console.log(error);
+    
+    return <div>Error loading data</div>;
+  }
 
   if (data) console.log(data);
 
