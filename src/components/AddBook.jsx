@@ -37,7 +37,7 @@ const AddBook = () => {
   return (
     <div className="add-container">
       <button id="add-btn" onClick={() => setShowForm(!showForm)}>
-        <Plus size={20} className="mr-2" />
+        <Plus size={20} />
         Add Book
       </button>
       {showForm && (
@@ -95,7 +95,7 @@ const AddBook = () => {
                 className="cancel"
                 onClick={() => setShowForm(false)}
               >
-                <X size={20} className="mr-2" />
+                <X size={20} />
                 Cancel
               </button>
             </div>

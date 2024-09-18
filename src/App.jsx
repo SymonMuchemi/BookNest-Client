@@ -12,15 +12,15 @@ function App() {
         </div>
         <nav className="links">
           <a href="#" className="active">
-            <Book size={20} className="mr-2" />
+            <Book size={20} className="icons" />
             Books
           </a>
           <a href="#">
-            <RefreshCw size={20} className="mr-2" />
+            <RefreshCw size={20} className="icons" />
             Transactions
           </a>
           <a href="#">
-            <Users size={20} className="mr-2" />
+            <Users size={20} className="icons" />
             Members
           </a>
         </nav>
