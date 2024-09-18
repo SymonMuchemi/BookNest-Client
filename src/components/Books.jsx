@@ -61,7 +61,7 @@ function Books() {
     return <div>Error loading data</div>;
   }
 
-  if (data) console.log(data);
+  // if (data) console.log(data);
 
   return (
     <div className="books">
