@@ -10,5 +10,6 @@ export const fetchBooks = (params = '') => api.get(`/books/get_books${params}`);
 export const fetchBooksByAuthor = (author) => api.get(`/books/get_by_author/${author}`);
 export const fetchBooksByTitle = (title) => api.get(`/books/get_by_title/${title}`);
 export const deleteBook = (id) => api.delete(`/books/delete/${id}`)
+export const createBook = (bookData) => api.post('/books/create', bookData);
 
 export default api;
