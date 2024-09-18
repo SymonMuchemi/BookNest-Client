@@ -1,5 +1,4 @@
-import "./styles/addBook.css";
-
+import { Plus, X } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
 
@@ -36,8 +35,9 @@ const AddBook = () => {
   };
 
   return (
-    <div className="container">
+    <div className="add-container">
       <button id="add-btn" onClick={() => setShowForm(!showForm)}>
+        <Plus size={20} className="mr-2" />
         Add Book
       </button>
       {showForm && (
@@ -55,7 +55,6 @@ const AddBook = () => {
                 required
               />
             </label>
-            <br />
             <label>
               Author:
               <input
@@ -67,7 +66,6 @@ const AddBook = () => {
                 required
               />
             </label>
-            <br />
             <label>
               Quantity:
               <input
@@ -79,27 +77,25 @@ const AddBook = () => {
                 required
               />
             </label>
-            <br />
             <label>
-              Penalty_fee:
+              Penalty Fee:
               <input
-                defaultValue={10}
-                placeholder="Penalty_fee"
                 type="number"
-                name="quantity"
+                name="penalty_fee"
+                placeholder="Penalty Fee"
                 value={formData.penalty_fee}
                 onChange={handleInputChange}
                 required
               />
             </label>
-            <br />
             <div className="buttons">
               <button type="submit">Submit</button>
               <button
-                type="reset"
+                type="button"
                 className="cancel"
                 onClick={() => setShowForm(false)}
               >
+                <X size={20} className="mr-2" />
                 Cancel
               </button>
             </div>

@@ -1,7 +1,6 @@
-import "./styles/books.css";
-
 import React from "react";
 import useSWR from "swr";
+import { Search, Edit, Trash2 } from "lucide-react";
 import AddBook from "./AddBook";
 import {
   fetchBooks,
@@ -67,57 +66,67 @@ function Books() {
   return (
     <div className="books">
       <h1>Books</h1>
-      <form onSubmit={handleSearch} className="search-form">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <select
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-        >
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-        </select>
-        <button type="submit">Search</button>
-      </form>
+      <div className="flex justify-between mb-6">
+        <form onSubmit={handleSearch} className="search-form">
+          <input
+            type="text"
+            placeholder="Search books..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <select
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value)}
+          >
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+          </select>
+          <button type="submit">
+            <Search size={20} />
+          </button>
+        </form>
+      </div>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error loading data</div>}
       {data && data.books && data.books.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.books.map((book, index) => (
-              <tr key={index}>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.quantity}</td>
-                <td className="actions">
-                  <button className="edit">Edit</button>
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(book.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Quantity</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.books.map((book, index) => (
+                <tr key={index}>
+                  <td>{book.id}</td>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.quantity}</td>
+                  <td className="actions">
+                    <button className="edit">
+                      <Edit size={16} />
+                    </button>
+                    <button
+                      className="delete"
+                      onClick={() => handleDelete(book.id)}
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <AddBook />
+        </>
       ) : (
         <p>No books found.</p>
       )}
-      {data && data.books && data.books.length > 0 && <AddBook />}
     </div>
   );
 }

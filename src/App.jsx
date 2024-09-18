@@ -1,6 +1,6 @@
 import "./App.css";
+import { Book, RefreshCw, Users } from "lucide-react";
 import Books from "./components/Books";
-import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
@@ -10,16 +10,23 @@ function App() {
           <img src="library-100.png" alt="shelf icon" />
           <p>BookNest</p>
         </div>
-        <div className="links">
-          <a href="#">Books</a>
-          <a href="#">Transacations</a>
-          <a href="#">Members</a>
-        </div>
+        <nav className="links">
+          <a href="#" className="active">
+            <Book size={20} className="mr-2" />
+            Books
+          </a>
+          <a href="#">
+            <RefreshCw size={20} className="mr-2" />
+            Transactions
+          </a>
+          <a href="#">
+            <Users size={20} className="mr-2" />
+            Members
+          </a>
+        </nav>
       </div>
       <div className="main">
-        <ErrorBoundary>
-          <Books />
-        </ErrorBoundary>
+        <Books />
       </div>
     </div>
   );
