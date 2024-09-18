@@ -85,9 +85,19 @@ body {
   background-color: var(--primary-dark);
 }
 
+.links a .icons {
+  margin-right: 0.5rem;
+}
+
 .main {
   flex: 1;
   padding: 2rem;
+  height: fit-content;
+  margin-left: 250px;
+}
+
+.books {
+  margin-top: 10rem;
 }
 
 .books h1 {
@@ -121,10 +131,16 @@ body {
   border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  align-items: center;
 }
 
 #add-btn {
-  margin: auto;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: large;
 }
 
 .search-form button:hover,
