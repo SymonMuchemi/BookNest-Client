@@ -1,11 +1,11 @@
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
-import axios from "axios";
+import { createBook } from "../utils/api";
 
 const AddBook = () => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    title: "",
     author: "",
     quantity: 0,
     penalty_fee: 10,
@@ -22,14 +22,11 @@ const AddBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/books/create",
-        formData
-      );
+      const response = await createBook(formData);
       console.log("Book added:", response.data);
       setShowForm(false);
     } catch (error) {
-      console.error("Error adding book:", error);
+      console.log("Error adding book:", error);
       alert("Failed to add book");
     }
   };
@@ -49,8 +46,8 @@ const AddBook = () => {
               <input
                 placeholder="Book Name"
                 type="text"
-                name="name"
-                value={formData.name}
+                name="title"
+                value={formData.title}
                 onChange={handleInputChange}
                 required
               />
@@ -95,7 +92,6 @@ const AddBook = () => {
                 className="cancel"
                 onClick={() => setShowForm(false)}
               >
-                <X size={20} />
                 Cancel
               </button>
             </div>
