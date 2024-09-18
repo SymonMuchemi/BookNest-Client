@@ -261,7 +261,7 @@ tr:nth-child(even) {
 }
 
 .popup-form .cancel {
-  background-color: #6b7280;
+  background-color: var(--danger-color);
   color: var(--white);
 }
 
