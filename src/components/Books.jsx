@@ -1,36 +1,51 @@
-import { useState, useCallback } from "react";
-import useSWR from "swr";
+import { useState, useCallback, useEffect } from "react";
 import { Search, Edit, Trash2 } from "lucide-react";
 import AddBook from "./AddBook";
-import {
-  fetchBooks,
-  fetchBooksByAuthor,
-  fetchBooksByTitle,
-  deleteBook,
-} from "../utils/api";
-
-const fetcher = (url, params) => {
-  if (url.includes("get_by_author")) {
-    return fetchBooksByAuthor(params).then((res) => res.data);
-  } else if (url.includes("get_by_title")) {
-    return fetchBooksByTitle(params).then((res) => res.data);
-  } else {
-    return fetchBooks(params).then((res) => res.data);
-  }
-};
+import { fetchBooks, fetchBooksBySearch, deleteBook } from "../utils/api";
 
 function Books() {
+  const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("title");
-  const [searchKey, setSearchKey] = useState(["/get_books"]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
-  const { data, error, isLoading, mutate } = useSWR(searchKey, fetcher);
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      let response;
+      if (searchTerm) {
+        response = await fetchBooksBySearch(
+          searchType,
+          searchTerm,
+          currentPage,
+          perPage
+        );
+      } else {
+        response = await fetchBooks(`?page=${currentPage}&per_page=${perPage}`);
+      }
+      setBooks(response.data.books);
+      setTotalPages(response.data.total_pages);
+    } catch (err) {
+      setError("Error loading books");
+      console.error(err);
+    }
+    setIsLoading(false);
+  }, [searchTerm, searchType, currentPage, perPage]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleDelete = async (id) => {
     try {
       const response = await deleteBook(id);
       if (response.status === 200) {
-        mutate();
+        fetchData();
       } else {
         console.error("Failed to delete book");
       }
@@ -39,19 +54,15 @@ function Books() {
     }
   };
 
-  const handleSearch = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!searchTerm) {
-        setSearchKey(["/get_books"]);
-      } else if (searchType === "author") {
-        setSearchKey(["/get_by_author", searchTerm]);
-      } else {
-        setSearchKey(["/get_by_title", searchTerm]);
-      }
-    },
-    [searchTerm, searchType]
-  );
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    fetchData();
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <div className="books">
@@ -77,8 +88,8 @@ function Books() {
         </form>
       </div>
       {isLoading && <div>Loading...</div>}
-      {error && <div>Error loading data</div>}
-      {data && data.books && data.books.length > 0 ? (
+      {error && <div>{error}</div>}
+      {books.length > 0 ? (
         <>
           <table>
             <thead>
@@ -91,8 +102,8 @@ function Books() {
               </tr>
             </thead>
             <tbody>
-              {data.books.map((book, index) => (
-                <tr key={index}>
+              {books.map((book) => (
+                <tr key={book.id}>
                   <td>{book.id}</td>
                   <td>{book.title}</td>
                   <td>{book.author}</td>
@@ -112,7 +123,22 @@ function Books() {
               ))}
             </tbody>
           </table>
-          <AddBook onBookAdded={() => mutate()} />
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>{`Page ${currentPage} of ${totalPages}`}</span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+          <AddBook onBookAdded={fetchData} />
         </>
       ) : (
         <p>No books found.</p>
