@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useCallback } from "react";
 import useSWR from "swr";
 import { Search, Edit, Trash2 } from "lucide-react";
 import AddBook from "./AddBook";
@@ -20,16 +20,15 @@ const fetcher = (url, params) => {
 };
 
 function Books() {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchType, setSearchType] = React.useState("title");
-  const [searchKey, setSearchKey] = React.useState(["/get_books"]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchType, setSearchType] = useState("title");
+  const [searchKey, setSearchKey] = useState(["/get_books"]);
 
   const { data, error, isLoading, mutate } = useSWR(searchKey, fetcher);
 
   const handleDelete = async (id) => {
     try {
       const response = await deleteBook(id);
-
       if (response.status === 200) {
         mutate();
       } else {
@@ -40,26 +39,19 @@ function Books() {
     }
   };
 
-  const handleSearch = React.useCallback((e) => {
-    e.preventDefault();
-    if (!searchTerm) {
-      setSearchKey(["/get_books"]);
-    } else if (searchType === "author") {
-      setSearchKey(["/get_by_author", searchTerm]);
-    } else {
-      setSearchKey(["/get_by_title", searchTerm]);
-    }
-  }, [searchTerm, searchType]);
-
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) {
-    console.log(error);
-
-    return <div>Error loading data</div>;
-  }
-
-  // if (data) console.log(data);
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!searchTerm) {
+        setSearchKey(["/get_books"]);
+      } else if (searchType === "author") {
+        setSearchKey(["/get_by_author", searchTerm]);
+      } else {
+        setSearchKey(["/get_by_title", searchTerm]);
+      }
+    },
+    [searchTerm, searchType]
+  );
 
   return (
     <div className="books">
@@ -120,7 +112,7 @@ function Books() {
               ))}
             </tbody>
           </table>
-          <AddBook />
+          <AddBook onBookAdded={() => mutate()} />
         </>
       ) : (
         <p>No books found.</p>
