@@ -25,7 +25,6 @@ const AddBook = () => {
       const response = await createBook(formData);
       console.log("Book added:", response.data);
       setShowForm(false);
-      console.alert("Book added successfully");
     } catch (error) {
       console.log("Error adding book:", error);
       alert("Failed to add book");
