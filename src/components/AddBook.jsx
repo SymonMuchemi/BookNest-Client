@@ -1,4 +1,4 @@
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { createBook } from "../utils/api";
 
@@ -25,6 +25,7 @@ const AddBook = () => {
       const response = await createBook(formData);
       console.log("Book added:", response.data);
       setShowForm(false);
+      console.alert("Book added successfully");
     } catch (error) {
       console.log("Error adding book:", error);
       alert("Failed to add book");
