@@ -22,22 +22,16 @@ const fetcher = (url, params) => {
 function Books() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchType, setSearchType] = React.useState("title");
+  const [searchKey, setSearchKey] = React.useState(["/get_books"]);
 
-  const getSearchKey = () => {
-    if (!searchTerm) return ["/get_books"];
-    if (searchType === "author") return ["/get_by_author", searchTerm];
-    return ["/get_by_title", searchTerm];
-  };
-
-  const { data, error, isLoading } = useSWR(getSearchKey(), fetcher);
+  const { data, error, isLoading, mutate } = useSWR(searchKey, fetcher);
 
   const handleDelete = async (id) => {
     try {
       const response = await deleteBook(id);
 
       if (response.status === 200) {
-        window.location.reload();
-        console.log("Book deleted successfully");
+        mutate();
       } else {
         console.error("Failed to delete book");
       }
@@ -46,13 +40,17 @@ function Books() {
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = React.useCallback((e) => {
     e.preventDefault();
-    console.log(searchTerm);
-    console.log(searchType);
-    const url = getSearchKey();
-    console.log(url);
-  };
+    if (!searchTerm) {
+      setSearchKey(["/get_books"]);
+    } else if (searchType === "author") {
+      setSearchKey(["/get_by_author", searchTerm]);
+    } else {
+      setSearchKey(["/get_by_title", searchTerm]);
+    }
+  }, [searchTerm, searchType]);
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) {
