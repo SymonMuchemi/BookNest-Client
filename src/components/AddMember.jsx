@@ -5,7 +5,6 @@ import { createMember } from "../utils/api";
 const AddMember = () => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    id: 0,
     name: "",
     debt: 0,
   });
@@ -40,17 +39,6 @@ const AddMember = () => {
         <div className="popup-form">
           <form onSubmit={handleSubmit}>
             <h2>Register a New Member</h2>
-            <label>
-              id:
-              <input
-                placeholder="New Member's ID"
-                type="number"
-                name="id"
-                value={formData.id}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
             <label>
               name:
               <input
