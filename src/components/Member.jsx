@@ -51,7 +51,7 @@ function Members() {
   };
 
   return (
-    <div className="books members">
+    <div className="records">
       <h1>Members</h1>
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
