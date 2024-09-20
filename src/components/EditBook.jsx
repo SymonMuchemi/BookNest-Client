@@ -1,16 +1,27 @@
 import { Edit } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateBook } from "../utils/api";
+import PropTypes from "prop-types";
 
-const EditBook = (book) => {
-  console.log(book);
+const EditBook = ({ book, onBookUpdated }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
+    id: book.id,
     title: book.title,
     author: book.author,
     quantity: book.quantity,
     penalty_fee: book.penalty_fee,
   });
+
+  useEffect(() => {
+    setFormData({
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      quantity: book.quantity,
+      penalty_fee: book.penalty_fee,
+    });
+  }, [book]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,16 +35,19 @@ const EditBook = (book) => {
     e.preventDefault();
     try {
       const response = await updateBook(formData);
-      console.log("Book added:", response.data);
+      console.log("Book updated:", response.data);
       setShowForm(false);
+      if (onBookUpdated) {
+        onBookUpdated();
+      }
     } catch (error) {
-      console.log("Error adding book:", error);
-      alert("Failed to add book");
+      console.log("Error updating book:", error);
+      alert("Failed to update book");
     }
   };
 
   return (
-    <div className="add-container">
+    <div className="edit-container">
       <button id="edit-btn" onClick={() => setShowForm(!showForm)}>
         <Edit size={20} />
       </button>
@@ -101,5 +115,17 @@ const EditBook = (book) => {
     </div>
   );
 };
+
+EditBook.propTypes = {
+    book: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      penalty_fee: PropTypes.number.isRequired,
+    }).isRequired,
+    onBookUpdated: PropTypes.func.isRequired,
+  };
+  
 
 export default EditBook;
