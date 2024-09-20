@@ -173,6 +173,11 @@ tr:nth-child(even) {
   background-color: #f9fafb;
 }
 
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .actions button {
   padding: 0.25rem 0.5rem;
   border: none;
@@ -293,7 +298,7 @@ tr:nth-child(even) {
   background-color: var(--primary-color);
   color: var(--white);
   border: none;
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
   border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.2s;
