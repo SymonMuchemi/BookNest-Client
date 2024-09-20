@@ -99,6 +99,7 @@ function Books() {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Quantity</th>
+                <th>Penalty Fee</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -109,6 +110,7 @@ function Books() {
                   <td>{book.title}</td>
                   <td>{book.author}</td>
                   <td>{book.quantity}</td>
+                  <td>{book.penalty_fee}</td>
                   <td className="actions">
                     <EditBook book={book} onBookUpdated={fetchData} />
                     <button
