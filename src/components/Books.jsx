@@ -12,7 +12,8 @@ function Books() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(10);
+
+  let perPage = 10;
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
