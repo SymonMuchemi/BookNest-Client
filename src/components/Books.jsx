@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
-import { Search, Edit, Trash2 } from "lucide-react";
-import AddBook from "./AddBook";
+import { Search, Trash2 } from "lucide-react";
 import { fetchBooks, fetchBooksBySearch, deleteBook } from "../utils/api";
+import AddBook from "./AddBook";
+import EditBook from "./EditBook";
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -109,9 +110,7 @@ function Books() {
                   <td>{book.author}</td>
                   <td>{book.quantity}</td>
                   <td className="actions">
-                    <button className="edit">
-                      <Edit size={16} />
-                    </button>
+                    <EditBook book={book} onBookUpdated={fetchData} />
                     <button
                       className="delete"
                       onClick={() => handleDelete(book.id)}
