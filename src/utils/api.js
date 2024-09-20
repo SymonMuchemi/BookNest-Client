@@ -17,4 +17,13 @@ export const deleteBook = (id) => api.delete(`/books/delete/${id}`);
 export const createBook = (bookData) => api.post('/books/create', bookData);
 export const updateBook = (book) => api.put(`/books/update/${book.id}`, book);
 
+export const fetchMembers = (page = 1, perPage = 10) => {
+    return api.get(`/members/get_members`, {
+        params: { page, per_page: perPage }
+    });
+};
+export const deleteMember = (id) => api.delete(`/members/delete/${id}`);
+export const createMember = (memberData) => api.post('/members/create', memberData);
+export const updateMember = (member) => api.put(`/members/update/${member.id}`, member);
+
 export default api;
