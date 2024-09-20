@@ -96,12 +96,15 @@ body {
   margin-left: 250px;
 }
 
-.books {
+.records {
   margin-top: 15rem;
   min-width: 70vw;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.books h1 {
+.records h1 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
