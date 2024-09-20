@@ -98,6 +98,7 @@ body {
 
 .books {
   margin-top: 15rem;
+  min-width: 70vw;
 }
 
 .books h1 {
