@@ -15,5 +15,6 @@ export const fetchBooksBySearch = (searchType, searchTerm, page = 1, perPage = 1
 };
 export const deleteBook = (id) => api.delete(`/books/delete/${id}`);
 export const createBook = (bookData) => api.post('/books/create', bookData);
+export const updateBook = (book) => api.put(`/books/update/${book.id}`, book);
 
 export default api;
