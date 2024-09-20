@@ -67,7 +67,7 @@ function Books() {
   };
 
   return (
-    <div className="books">
+    <div className="records">
       <h1>Books</h1>
       <div className="flex justify-between mb-6">
         <form onSubmit={handleSearch} className="search-form">
