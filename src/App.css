@@ -135,12 +135,13 @@ body {
 }
 
 #add-btn {
-  margin: 20px;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
   align-items: center;
   font-size: large;
+  margin-top: 10px;
+  background-color: var(--secondary-color);
 }
 
 .search-form button:hover,
