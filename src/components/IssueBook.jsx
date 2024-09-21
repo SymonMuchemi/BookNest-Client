@@ -42,6 +42,10 @@ const IssueBook = () => {
       } else {
         setMessage({ type: "error", text: "Error in request setup" });
       }
+    } finally {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   };
 
