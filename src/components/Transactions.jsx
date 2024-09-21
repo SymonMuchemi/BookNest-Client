@@ -36,6 +36,12 @@ function Transactions() {
     setCurrentPage(newPage);
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "Not returned";
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
   return (
     <div className="records">
       <h1>Transactions</h1>
@@ -46,26 +52,29 @@ function Transactions() {
           <table>
             <thead>
               <tr>
-                <th>Date</th>
+                <th>id</th>
                 <th>Member Name</th>
                 <th>Book Title</th>
+                <th>Date Issued</th>
+                <th>Date Returned</th>
+                <th>Charge</th>
                 <th>Type</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction) => {
-                const dateObj = new Date(transaction.date);
-                const date = dateObj.toLocaleDateString();
-
                 return (
                   <tr key={transaction.id}>
-                    <td>{date}</td>
+                    <td>{transaction.id}</td>
                     <td>
                       {transaction.member_name} [{transaction.member_id}]
                     </td>
                     <td>
                       {transaction.book_title} [{transaction.book_id}]
                     </td>
+                    <td>{formatDate(transaction.issued_on)}</td>
+                    <td>{formatDate(transaction.returned_on)}</td>
+                    <td>{transaction.charge}</td>
                     <td>{transaction.type}</td>
                   </tr>
                 );
