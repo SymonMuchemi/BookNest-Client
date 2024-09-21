@@ -49,7 +49,8 @@ function Books() {
       if (response.status === 200) {
         fetchData();
       } else {
-        console.error("Failed to delete book");
+        // TODO: Show an alert to the user
+        console.alert("Failed to delete book");
       }
     } catch (error) {
       console.error("Error deleting book:", error);
