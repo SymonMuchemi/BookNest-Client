@@ -102,6 +102,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  text-transform: capitalize;
 }
 
 .records h1 {
@@ -308,4 +309,28 @@ tr:nth-child(even) {
   cursor: pointer;
   transition: background-color 0.2s;
   align-items: center;
+}
+
+.record-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.message {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }

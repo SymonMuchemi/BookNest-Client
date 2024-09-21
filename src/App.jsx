@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Books from "./components/Books";
 import Members from "./components/Member";
+import Transactions from "./components/Transactions";
 
 function App() {
   return (
@@ -27,18 +28,19 @@ function App() {
               Books
             </NavLink>
             <NavLink
-              to="/transactions"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <RefreshCw size={20} className="icons" />
-              Transactions
-            </NavLink>
-            <NavLink
               to="/member"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <Users size={20} className="icons" />
               Members
+            </NavLink>
+
+            <NavLink
+              to="/transactions"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              <RefreshCw size={20} className="icons" />
+              Transactions
             </NavLink>
           </nav>
         </div>
@@ -46,10 +48,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Books />} />
             <Route path="/member" element={<Members />} />
-            <Route
-              path="/transactions"
-              element={<p>Transactions page (to be implemented)</p>}
-            />
+            <Route path="/transactions" element={<Transactions />} />
           </Routes>
         </div>
       </div>
