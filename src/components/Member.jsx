@@ -40,6 +40,8 @@ function Members() {
         fetchData();
       } else {
         console.error("Failed to delete member");
+        // TODO: Show an alert to the user
+        alert("Member has books issued. Cannot delete.");
       }
     } catch (error) {
       console.error("Error deleting member:", error);
