@@ -8,6 +8,7 @@ const RetrieveBook = () => {
     member_id: "",
     type: "return",
   });
+  const [message, setMessage] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,13 +20,33 @@ const RetrieveBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(null);
     try {
       const response = await retrieveBook(formData);
-      console.log("Book retrieved successfully", response.data);
+      console.log("Book issued successfully:", response.data);
+      setMessage({ type: "success", text: response.data.Message });
       setShowForm(false);
+      setFormData({ book_id: "", member_id: "" });
     } catch (error) {
-      console.log("Error adding book:", error);
-      alert("Failed to retrieve book");
+      console.error("Error issuing book:", error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          setMessage({
+            type: "error",
+            text: error.response.data.Error || "Failed to issue book",
+          });
+        } else {
+          setMessage({ type: "error", text: "An unexpected error occurred" });
+        }
+      } else if (error.request) {
+        setMessage({ type: "error", text: "No response from server" });
+      } else {
+        setMessage({ type: "error", text: "Error in request setup" });
+      }
+    } finally {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   };
 
@@ -34,6 +55,9 @@ const RetrieveBook = () => {
       <button id="add-btn" onClick={() => setShowForm(!showForm)}>
         Retrieve Book
       </button>
+      {message && (
+        <div className={`message ${message.type}`}>{message.text}</div>
+      )}
       {showForm && (
         <div className="popup-form">
           <form onSubmit={handleSubmit}>

@@ -12,6 +12,7 @@ function Books() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [message, setMessage] = useState(null);
 
   let perPage = 10;
 
@@ -49,12 +50,24 @@ function Books() {
       if (response.status === 200) {
         fetchData();
       } else {
-        console.error("Failed to delete book");
+        console.alert("Failed to delete book");
+        setMessage({ type: "error", text: "Book has pending transaction!" });
       }
     } catch (error) {
       console.error("Error deleting book:", error);
+      setMessage({ type: "error", text: "Book has Pending transaction(s)!" });
     }
   };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -89,6 +102,9 @@ function Books() {
           </button>
         </form>
       </div>
+      {message && (
+        <div className={`message ${message.type}`}>{message.text}</div>
+      )}
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {books.length > 0 ? (
