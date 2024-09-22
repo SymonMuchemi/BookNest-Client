@@ -10,6 +10,7 @@ function Members() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [message, setMessage] = useState(null);
 
   let perPage = 10;
 
@@ -33,6 +34,16 @@ function Members() {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   const handleDelete = async (id) => {
     try {
       const response = await deleteMember(id);
@@ -45,6 +56,7 @@ function Members() {
       }
     } catch (error) {
       console.error("Error deleting member:", error);
+      setMessage({ type: "error", text: "Member has books issued!" });
     }
   };
 
@@ -55,6 +67,9 @@ function Members() {
   return (
     <div className="records">
       <h1>Members</h1>
+      {message && (
+        <div className={`message ${message.type}`}>{message.text}</div>
+      )}
       {isLoading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {Members.length > 0 ? (
