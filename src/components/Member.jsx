@@ -51,7 +51,6 @@ function Members() {
         fetchData();
       } else {
         console.error("Failed to delete member");
-        // TODO: Show an alert to the user
         alert("Member has books issued. Cannot delete.");
       }
     } catch (error) {
@@ -79,7 +78,6 @@ function Members() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Debt</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -88,7 +86,6 @@ function Members() {
                 <tr key={member.id}>
                   <td>{member.id}</td>
                   <td>{member.name}</td>
-                  <td>{member.debt}</td>
                   <td className="actions">
                     <EditMember member={member} onMemberUpdated={fetchData} />
                     <button
