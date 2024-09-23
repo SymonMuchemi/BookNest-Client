@@ -29,7 +29,7 @@ function Members() {
     }
     setIsLoading(false);
   }, [currentPage, perPage]);
-  
+
   const handleDelete = async (id) => {
     try {
       const response = await deleteMember(id);
@@ -44,24 +44,24 @@ function Members() {
       setMessage({ type: "error", text: "Member has books issued!" });
     }
   };
-  
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-  
-    useEffect(() => {
-      fetchData();
-    }, [fetchData]);
-  
-    useEffect(() => {
-      if (message) {
-        const timer = setTimeout(() => {
-          setMessage(null);
-        }, 2000);
-  
-        return () => clearTimeout(timer);
-      }
-    }, [message]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   return (
     <div className="records">
@@ -78,6 +78,7 @@ function Members() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Books Borrowed</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -86,6 +87,7 @@ function Members() {
                 <tr key={member.id}>
                   <td>{member.id}</td>
                   <td>{member.name}</td>
+                  <td>{member.books_borrowed}</td>
                   <td className="actions">
                     <EditMember member={member} onMemberUpdated={fetchData} />
                     <button
