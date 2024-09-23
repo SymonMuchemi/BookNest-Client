@@ -7,7 +7,7 @@ import {
   NavLink,
 } from "react-router-dom";
 import Books from "./components/Books";
-import Members from "./components/Member";
+import Members from "./components/Members";
 import Transactions from "./components/Transactions";
 
 function App() {
