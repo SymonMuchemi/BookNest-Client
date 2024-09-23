@@ -28,10 +28,6 @@ function Transactions() {
     setIsLoading(false);
   }, [currentPage, perPage]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -41,6 +37,10 @@ function Transactions() {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <div className="records">
