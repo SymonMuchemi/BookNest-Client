@@ -29,21 +29,7 @@ function Members() {
     }
     setIsLoading(false);
   }, [currentPage, perPage]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        setMessage(null);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [message]);
-
+  
   const handleDelete = async (id) => {
     try {
       const response = await deleteMember(id);
@@ -58,10 +44,24 @@ function Members() {
       setMessage({ type: "error", text: "Member has books issued!" });
     }
   };
-
+  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+  
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
+  
+    useEffect(() => {
+      if (message) {
+        const timer = setTimeout(() => {
+          setMessage(null);
+        }, 2000);
+  
+        return () => clearTimeout(timer);
+      }
+    }, [message]);
 
   return (
     <div className="records">
