@@ -21,6 +21,7 @@ function Books() {
     setError(null);
     try {
       let response;
+
       if (searchTerm) {
         response = await fetchBooksBySearch(
           searchType,
@@ -40,17 +41,12 @@ function Books() {
     setIsLoading(false);
   }, [searchTerm, searchType, currentPage, perPage]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   const handleDelete = async (id) => {
     try {
       const response = await deleteBook(id);
       if (response.status === 200) {
         fetchData();
       } else {
-        console.alert("Failed to delete book");
         setMessage({ type: "error", text: "Book has pending transaction!" });
       }
     } catch (error) {
@@ -58,16 +54,6 @@ function Books() {
       setMessage({ type: "error", text: "Book has Pending transaction(s)!" });
     }
   };
-
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        setMessage(null);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [message]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -78,6 +64,20 @@ function Books() {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   return (
     <div className="records">
