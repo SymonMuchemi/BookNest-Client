@@ -28,7 +28,7 @@ function App() {
               Books
             </NavLink>
             <NavLink
-              to="/member"
+              to="/members"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <Users size={20} className="icons" />
