@@ -23,6 +23,7 @@ const AddMember = () => {
       const response = await createMember(formData);
       console.log("Member registered:", response.data);
       setShowForm(false);
+      window.location.reload();
     } catch (error) {
       console.log("Error creating member:", error);
       alert("Failed to create member");
