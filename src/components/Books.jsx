@@ -159,7 +159,10 @@ function Books() {
           <AddBook onBookAdded={fetchData} />
         </>
       ) : (
-        <p>No books found.</p>
+        <>
+          <p>No books found.</p>
+          <AddBook onBookAdded={fetchData} />
+        </>
       )}
     </div>
   );

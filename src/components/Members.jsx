@@ -119,7 +119,10 @@ function Members() {
           <AddMember onmemberAdded={fetchData} />
         </>
       ) : (
-        <p>No Members found.</p>
+        <>
+          <p>No Members found.</p>
+          <AddMember onmemberAdded={fetchData} />
+        </>
       )}
     </div>
   );
