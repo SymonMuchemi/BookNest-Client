@@ -70,9 +70,11 @@ function Members() {
       {message && (
         <div className={`message ${message.type}`}>{message.text}</div>
       )}
-      {isLoading && <MembersSkeleton/>}
-      {error && <div>{error}</div>}
-      {Members.length > 0 ? (
+      {isLoading ? (
+        <MembersSkeleton />
+      ) : error ? (
+        <div>{error}</div>
+      ) : Members.length > 0 ? (
         <>
           <table>
             <thead>
