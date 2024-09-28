@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 import { fetchMembers, deleteMember } from "../../utils/api";
 import AddMember from "./AddMember";
 import EditMember from "./EditMember";
+import MembersSkeleton from "./MembersSkeleton";
 
 function Members() {
   const [Members, setMembers] = useState([]);
@@ -69,7 +70,7 @@ function Members() {
       {message && (
         <div className={`message ${message.type}`}>{message.text}</div>
       )}
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <MembersSkeleton/>}
       {error && <div>{error}</div>}
       {Members.length > 0 ? (
         <>
