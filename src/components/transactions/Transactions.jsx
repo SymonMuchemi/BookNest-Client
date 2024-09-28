@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { fetchTransactions } from "../../utils/api";
 import RetrieveBook from "./RetrieveBook";
 import IssueBook from "./IssueBook";
+import TransactionsSkeleton from "./TransactionsSkeleton";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
@@ -45,9 +46,11 @@ function Transactions() {
   return (
     <div className="records">
       <h1>Transactions</h1>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {transactions.length > 0 ? (
+      {isLoading ? (
+        <TransactionsSkeleton />
+      ) : error ? (
+        <div>{error}</div>
+      ) : transactions.length > 0 ? (
         <>
           <table>
             <thead>
