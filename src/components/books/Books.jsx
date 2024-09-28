@@ -3,6 +3,7 @@ import { Search, Trash2 } from "lucide-react";
 import { fetchBooks, fetchBooksBySearch, deleteBook } from "../../utils/api";
 import AddBook from "./AddBook";
 import EditBook from "./EditBook";
+import BooksSkeleton from "./BooksSekeleton";
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -105,9 +106,11 @@ function Books() {
       {message && (
         <div className={`message ${message.type}`}>{message.text}</div>
       )}
-      {isLoading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {books.length > 0 ? (
+      {isLoading ? (
+        <BooksSkeleton />
+      ) : error ? (
+        <div>{error}</div>
+      ) : books.length > 0 ? (
         <>
           <table>
             <thead>
