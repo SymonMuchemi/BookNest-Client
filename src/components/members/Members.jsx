@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { Trash2 } from "lucide-react";
-import { fetchMembers, deleteMember } from "../utils/api";
+import { fetchMembers, deleteMember } from "../../utils/api";
 import AddMember from "./AddMember";
 import EditMember from "./EditMember";
 

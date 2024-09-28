@@ -1,6 +1,6 @@
 import { Edit } from "lucide-react";
 import { useState, useEffect } from "react";
-import { updateMember } from "../utils/api";
+import { updateMember } from "../../utils/api";
 import PropTypes from "prop-types";
 
 const EditMember = ({ member, onMemberUpdated }) => {

@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { createMember } from "../utils/api";
+import { createMember } from "../../utils/api";
 
 const AddMember = () => {
   const [showForm, setShowForm] = useState(false);

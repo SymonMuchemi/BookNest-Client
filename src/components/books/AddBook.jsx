@@ -1,27 +1,15 @@
-import { Edit } from "lucide-react";
-import { useState, useEffect } from "react";
-import { updateBook } from "../utils/api";
-import PropTypes from "prop-types";
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { createBook } from "../../utils/api";
 
-const EditBook = ({ book, onBookUpdated }) => {
+const AddBook = () => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    id: book.id,
-    title: book.title,
-    author: book.author,
-    quantity: book.quantity,
-    penalty_fee: book.penalty_fee,
+    title: "",
+    author: "",
+    quantity: 0,
+    penalty_fee: 10,
   });
-
-  useEffect(() => {
-    setFormData({
-      id: book.id,
-      title: book.title,
-      author: book.author,
-      quantity: book.quantity,
-      penalty_fee: book.penalty_fee,
-    });
-  }, [book]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,27 +22,26 @@ const EditBook = ({ book, onBookUpdated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateBook(formData);
-      console.log("Book updated:", response.data);
+      const response = await createBook(formData);
+      console.log("Book added:", response.data);
       setShowForm(false);
-      if (onBookUpdated) {
-        onBookUpdated();
-      }
+      window.location.reload();
     } catch (error) {
-      console.log("Error updating book:", error);
-      alert("Failed to update book");
+      console.log("Error adding book:", error);
+      alert("Failed to add book");
     }
   };
 
   return (
-    <div className="edit-container">
-      <button id="edit-btn" onClick={() => setShowForm(!showForm)}>
-        <Edit size={20} />
+    <div className="add-container">
+      <button id="add-btn" onClick={() => setShowForm(!showForm)}>
+        <Plus size={20} />
+        Add Book
       </button>
       {showForm && (
         <div className="popup-form">
           <form onSubmit={handleSubmit}>
-            <h2>{`Update ${book.title}`}</h2>
+            <h2>Add Book</h2>
             <label>
               Name:
               <input
@@ -116,16 +103,4 @@ const EditBook = ({ book, onBookUpdated }) => {
   );
 };
 
-EditBook.propTypes = {
-    book: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-      penalty_fee: PropTypes.number.isRequired,
-    }).isRequired,
-    onBookUpdated: PropTypes.func.isRequired,
-  };
-  
-
-export default EditBook;
+export default AddBook;

@@ -6,9 +6,9 @@ import {
   Routes,
   NavLink,
 } from "react-router-dom";
-import Books from "./components/Books";
-import Members from "./components/Members";
-import Transactions from "./components/Transactions";
+import Books from "./components/books/Books";
+import Members from "./components/members/Members";
+import Transactions from "./components/transactions/Transactions";
 
 function App() {
   return (
