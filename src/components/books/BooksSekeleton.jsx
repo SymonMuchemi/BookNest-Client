@@ -1,6 +1,6 @@
-import '../skeleton.css';
+import "../skeleton.css";
 
-const MembersSkeleton = () => (
+const BooksSkeleton = () => (
   <div className="skeleton-wrapper">
     <div className="skeleton-header"></div>
     <div className="skeleton-table">
@@ -30,4 +30,4 @@ const MembersSkeleton = () => (
   </div>
 );
 
-export default MembersSkeleton;
+export default BooksSkeleton;
