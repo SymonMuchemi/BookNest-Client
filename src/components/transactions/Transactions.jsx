@@ -25,9 +25,10 @@ function Transactions() {
     } catch (err) {
       setError("Error loading Transactions");
       console.error(err);
+      console.log(error);
     }
     setIsLoading(false);
-  }, [currentPage, perPage]);
+  }, [currentPage, perPage, error]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -48,8 +49,6 @@ function Transactions() {
       <h1>Transactions</h1>
       {isLoading ? (
         <TransactionsSkeleton />
-      ) : error ? (
-        <div>{error}</div>
       ) : transactions.length > 0 ? (
         <>
           <table>
@@ -105,7 +104,10 @@ function Transactions() {
           </div>
         </>
       ) : (
-        <p>No Transactions found.</p>
+        <>
+          <p>No Transactions found.</p>
+          <IssueBook />
+        </>
       )}
     </div>
   );
