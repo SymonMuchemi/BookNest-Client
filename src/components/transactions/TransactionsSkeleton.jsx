@@ -13,7 +13,7 @@ const TransactionsSkeleton = () => (
         <div className="skeleton-cell"></div>
         <div className="skeleton-cell"></div>
       </div>
-      {[...Array(5)].map((_, index) => (
+      {[...Array(7)].map((_, index) => (
         <div key={index} className="skeleton-row">
           <div className="skeleton-cell"></div>
           <div className="skeleton-cell"></div>
