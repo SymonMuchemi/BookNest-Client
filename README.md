@@ -1,5 +1,3 @@
-This project is bootstrapped with Vite+React and can be accessed [here](https://booknest78.vercel.app/).
-
 # BookNest Client
 
 ![Root Page](./screenshots/books.png)
